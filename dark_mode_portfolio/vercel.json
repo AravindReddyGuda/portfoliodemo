@@ -14,16 +14,6 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
-    {
-      "src": "/Aravind_Resume.pdf",
-      "dest": "/Aravind_Resume.pdf"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/server.js"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
