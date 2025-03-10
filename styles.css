@@ -1,0 +1,885 @@
+/* Copy all content between <style> tags from your HTML file */   
+    /* Basic Reset */
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+  
+      /* Overall Dark Theme and Typography */
+      html {
+        scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+      }
+      body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #121212;
+        color: #eaeaea;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+  
+      /* Navigation */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: #1f1f1f;
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+      }
+      nav a {
+        color: #eaeaea;
+        text-decoration: none;
+        margin-left: 1.5rem;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: #3b82f6; /* accent on hover */
+      }
+  
+      /* Section styling */
+      section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 6rem 2rem 2rem;
+        /* 6rem top padding to accommodate fixed nav */
+      }
+  
+      /* Landing Section (Home) */
+      #home {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+      #home h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      #home p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        color: #a3a3a3;
+      }
+  
+      /* CTA buttons on home */
+      .cta-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+      }
+  
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+  
+      /* Button base styles */
+      .cta-buttons a {
+        text-decoration: none;
+        color: #ffffff;
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 140px;
+        overflow: hidden;
+      }
+  
+      /* Text and icon styling */
+      .button-text {
+        transition: all 0.3s ease;
+      }
+  
+      .hover-icon {
+        position: absolute;
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.3s ease;
+        font-size: 1.2rem;
+      }
+  
+      /* Hover effects */
+      .cta-buttons a:hover .button-text {
+        opacity: 0;
+        transform: scale(0);
+      }
+  
+      .cta-buttons a:hover .hover-icon {
+        opacity: 1;
+        transform: scale(1);
+      }
+  
+      /* Primary buttons */
+      .primary-buttons a {
+        background-color: rgba(59, 130, 246, 0.3); /* Translucent blue */
+      }
+  
+      .primary-buttons a:hover {
+        background-color: rgba(59, 130, 246, 0.5);
+      }
+  
+      .primary-buttons a:hover .hover-icon {
+        color: #93c5fd;
+      }
+  
+      /* Resume button */
+      .resume-btn {
+        background-color: rgba(16, 185, 129, 0.3) !important; /* Translucent green */
+      }
+  
+      .resume-btn:hover {
+        background-color: rgba(16, 185, 129, 0.5) !important;
+      }
+  
+      .resume-btn:hover .hover-icon {
+        color: #6ee7b7;
+      }
+  
+      /* Contact buttons */
+      .email-btn {
+        background-color: rgba(220, 38, 38, 0.3) !important; /* Translucent red */
+      }
+  
+      .email-btn:hover {
+        background-color: rgba(220, 38, 38, 0.5) !important;
+      }
+  
+      .email-btn:hover .hover-icon {
+        color: #fca5a5;
+      }
+  
+      .chat-btn {
+        background-color: rgba(124, 58, 237, 0.3) !important; /* Translucent purple */
+      }
+  
+      .chat-btn:hover {
+        background-color: rgba(124, 58, 237, 0.5) !important;
+      }
+  
+      .chat-btn:hover .hover-icon {
+        color: #c4b5fd;
+      }
+  
+      /* Experience Section (Timeline style) */
+      #experience {
+        flex-direction: column;
+        padding-top: 8rem;
+      }
+      #experience h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+      .timeline {
+        position: relative;
+        margin: 2rem auto;
+        max-width: 800px;
+        padding: 1rem 0;
+      }
+      /* Timeline vertical line */
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background-color: #2f2f2f;
+      }
+      /* Each timeline item */
+      .timeline-item {
+        width: 50%;
+        padding: 1.5rem;
+        position: relative;
+      }
+      .timeline-item:nth-child(odd) {
+        left: 0;
+        text-align: right;
+      }
+      .timeline-item:nth-child(even) {
+        left: 50%;
+      }
+      /* Dot for each timeline item */
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: #3b82f6;
+        border-radius: 50%;
+        top: 2rem;
+        z-index: 1;
+      }
+      .timeline-item:nth-child(odd)::before {
+        right: -10px;
+      }
+      .timeline-item:nth-child(even)::before {
+        left: -10px;
+      }
+      /* Minimal fade-in on scroll */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+  
+      /* Projects Section */
+      #projects {
+        flex-direction: column;
+        padding-top: 8rem;
+      }
+      #projects h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .project-card {
+        background-color: #1f1f1f;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        transition: transform 0.3s ease;
+      }
+      .project-card:hover {
+        transform: translateY(-5px);
+      }
+      .project-card h3 {
+        margin-bottom: 0.5rem;
+        font-size: 1.25rem;
+      }
+      .project-card p {
+        font-size: 0.9rem;
+        color: #a3a3a3;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+      }
+      .read-more {
+        text-decoration: none;
+        color: #3b82f6;
+        font-weight: 700;
+      }
+      .read-more:hover {
+        text-decoration: underline;
+      }
+  
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 2rem 1rem;
+        background-color: #1f1f1f;
+      }
+      footer p {
+        color: #a3a3a3;
+        font-size: 0.875rem;
+      }
+  
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        nav {
+          flex-direction: column;
+          gap: 1rem;
+          padding: 1rem;
+        }
+        .timeline-item {
+          width: 100%;
+          text-align: left !important;
+          left: 0 !important;
+          margin-bottom: 2rem;
+        }
+        .timeline::before {
+          left: 10px;
+          width: 2px;
+        }
+        .timeline-item:nth-child(odd)::before,
+        .timeline-item:nth-child(even)::before {
+          left: -10px;
+          right: auto;
+        }
+        .social-links {
+          margin-right: 0;
+          order: 2;
+        }
+      }
+  
+      /* Timeline item technology list */
+      .timeline-item p {
+        margin-bottom: 0.5rem;
+      }
+      
+      /* Project card technology stack */
+      .tech-stack {
+        color: #3b82f6 !important;
+        font-size: 0.8rem !important;
+        margin-top: 0.5rem !important;
+      }
+      
+      /* Increase project card size */
+      .project-card {
+        min-height: 300px;
+      }
+  
+      /* Make buttons wrap on smaller screens */
+      @media (max-width: 768px) {
+        .cta-buttons {
+          flex-wrap: wrap;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+        .cta-buttons a {
+          min-width: 120px;
+          padding: 0.75rem 1.5rem;
+        }
+      }
+  
+      /* Add styling for work and education items */
+      .timeline-item.work {
+        background-color: rgba(59, 130, 246, 0.1); /* Blue tint */
+        border-left: 4px solid #3b82f6;
+      }
+      
+      .timeline-item.education {
+        background-color: rgba(16, 185, 129, 0.1); /* Green tint */
+        border-left: 4px solid #10b981;
+      }
+      
+      /* Adjust the dots for work and education */
+      .timeline-item.work::before {
+        background-color: #3b82f6;
+      }
+      
+      .timeline-item.education::before {
+        background-color: #10b981;
+      }
+  
+      /* Social Links styling */
+      .social-links {
+        display: flex;
+        gap: 1.5rem;
+        margin-right: auto; /* This pushes the nav links to the right */
+      }
+      
+      .social-links a {
+        color: #eaeaea;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
+      
+      .social-links a:hover {
+        color: #3b82f6;
+        transform: translateY(-2px);
+      }
+  
+      /* Tech Stack Section */
+      .tech-stack-section {
+        margin-top: 2rem;
+      }
+  
+      .tech-stack-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #eaeaea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+      }
+  
+      .tech-stack-section h2.learning-section {
+        margin-top: 2rem;
+        font-size: 1.4rem;
+      }
+  
+      .tech-stack-section h2 i {
+        color: #3b82f6;
+        font-size: 1.7rem;
+      }
+  
+      /* Different color for AI tools section */
+      .tech-stack-section h2.learning-section i {
+        color: #10b981;
+      }
+  
+      .learning-section + .tech-icons .tech-icon i {
+        color: #10b981;
+      }
+  
+      .tech-icons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+  
+      .tech-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        transition: transform 0.3s ease;
+      }
+  
+      .tech-icon i {
+        font-size: 2rem;
+        color: #3b82f6;
+      }
+  
+      .tech-icon span {
+        font-size: 0.8rem;
+        color: #a3a3a3;
+      }
+  
+      .tech-icon:hover {
+        transform: translateY(-5px);
+      }
+  
+      /* Responsive adjustments for tech icons */
+      @media (max-width: 768px) {
+        .tech-icons {
+          gap: 1rem;
+        }
+        
+        .tech-icon i {
+          font-size: 1.75rem;
+        }
+        
+        .tech-stack-section h2 {
+          font-size: 1.3rem;
+        }
+      }
+  
+      /* Animation for icon glow */
+      @keyframes iconGlow {
+        0%, 100% {
+          filter: drop-shadow(0 0 5px currentColor);
+        }
+        50% {
+          filter: drop-shadow(0 0 15px currentColor);
+        }
+      }
+  
+      .cta-buttons a:hover .hover-icon {
+        animation: iconGlow 2s ease-in-out infinite;
+      }
+
+/* Matrix canvas styling */
+#matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-color: black;
+}
+
+/* Ensure content appears above the matrix effect */
+nav, section, footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Add a subtle glow to your content sections */
+section {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 255, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+/* Optional: Add green text shadow to headings */
+h1, h2, h3 {
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Remove the cursor: none property */
+* {
+  cursor: default; /* This shows the default cursor */
+}
+
+/* Custom cursor for interactive elements */
+a, button, .interactive {
+  cursor: pointer !important; /* Shows pointing hand on clickable elements */
+}
+
+/* Show default cursor on mobile devices */
+@media (max-width: 768px) {
+  .cursor-glow {
+    display: none;
+  }
+}
+
+/* Professional background effect */
+.background-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.gradient-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #121212 0%, #1e1e1e 50%, #121212 100%);
+  animation: gradientMove 15s ease infinite;
+  background-size: 200% 200%;
+}
+
+.floating-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-elements::before,
+.floating-elements::after {
+  content: '';
+  position: absolute;
+  width: 40vmax;
+  height: 40vmax;
+  border-radius: 47% 53% 61% 39% / 45% 51% 49% 55%;
+  background: rgba(49, 45, 33, 0.05); /* Lighter sand color */
+}
+
+.floating-elements::before {
+  animation: float 25s infinite;
+  top: -20%;
+  left: -10%;
+}
+
+.floating-elements::after {
+  animation: float 30s infinite reverse;
+  bottom: -20%;
+  right: -10%;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg);
+  }
+  25% {
+    transform: translate(10%, 10%) rotate(90deg);
+  }
+  50% {
+    transform: translate(0%, 20%) rotate(180deg);
+  }
+  75% {
+    transform: translate(-10%, 10%) rotate(270deg);
+  }
+  100% {
+    transform: translate(0%, 0%) rotate(360deg);
+  }
+}
+
+/* Update section backgrounds for better contrast */
+section {
+  background: rgba(27, 27, 27, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+}
+
+section:hover {
+  background: rgba(18, 18, 18, 0.8);
+}
+
+/* Optional: Add subtle transition to cards */
+.project-card {
+  background: rgba(18, 18, 18, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background: rgba(18, 18, 18, 0.95);
+}
+
+/* Enhance nav background */
+nav {
+  background: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Fluid highlight animation styles */
+.highlight-link {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  padding: 0 8px;
+  transition: color 0.3s ease;
+}
+
+.highlight-text {
+  position: relative;
+  z-index: 1;
+}
+
+.liquid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  background: linear-gradient(
+    0deg,
+    rgba(59, 130, 246, 0.2) 0%,
+    rgba(59, 130, 246, 0.4) 50%,
+    rgba(59, 130, 246, 0.2) 100%
+  );
+  filter: blur(5px);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.liquid::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    0deg,
+    #3b82f6,
+    #60a5fa,
+    #3b82f6
+  );
+  background-size: 200% 200%;
+  animation: gradientBG 3s ease infinite;
+  border-radius: 4px;
+  filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+/* Hover effects */
+.highlight-link:hover .liquid {
+  transform: scaleY(1);
+}
+
+.highlight-link:hover .liquid::before {
+  opacity: 1;
+}
+
+.highlight-link:hover .highlight-text {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(18, 18, 18, 0.8);
+}
+
+/* Add ripple effect on click */
+.highlight-link:active .liquid {
+  transform: scaleY(0.95);
+  transition: transform 0.1s ease;
+}
+
+/* Optional: Add floating animation to the name */
+.highlight-link {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Enhance the overall h1 styling */
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+/* Add responsive adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  .highlight-link {
+    padding: 0 4px;
+  }
+}
+
+
+
+/* Show default cursor */
+* {
+  cursor: default;
+}
+
+a, button, .interactive {
+  cursor: pointer;
+}
+
+/* Hide arrow on mobile */
+@media (max-width: 768px) {
+  .cursor-arrow {
+    display: none;
+  }
+}
+
+/* Remove any existing cursor-related styles and add these */
+.cursor-tech-icon {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  font-size: 18px;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.cursor-tech-icon i {
+  filter: drop-shadow(0 0 10px currentColor);
+  opacity: 0.9;
+}
+
+/* Animation for icon change */
+@keyframes iconPop {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+  20% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+}
+
+/* Hide on mobile */
+@media (max-width: 768px) {
+  .cursor-tech-icon {
+    display: none;
+  }
+}
+
+
+/* Ensure the timeline item is the positioning context */
+.timeline-item {
+  position: relative;
+  overflow: hidden; /* so icons don’t spill outside if necessary */
+}
+
+/* Tech popup container positioned to the right of the timeline item */
+.timeline-item .tech-popup {
+  position: absolute;
+  top: 0;
+  right: -80px;  /* adjust as needed to position it outside the main content */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* Initially hidden state */
+  opacity: 0;
+  transform: translateX(20px);
+  /* Animate container in quickly */
+  animation: popupIn 0.5s forwards 0.3s;
+}
+
+/* Each icon pops in with a staggered delay */
+.timeline-item .tech-popup i {
+  font-size: 20px; /* adjust as desired */
+  opacity: 0;
+  transform: scale(0);
+  animation: popIcon 0.3s ease-out forwards;
+}
+
+/* Stagger the icon animations so they appear one after the other */
+.timeline-item .tech-popup i:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item .tech-popup i:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item .tech-popup i:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item .tech-popup i:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item .tech-popup i:nth-child(5) { animation-delay: 0.5s; }
+.timeline-item .tech-popup i:nth-child(6) { animation-delay: 0.6s; }
+
+/* Keyframes for sliding in the popup container */
+@keyframes popupIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Keyframes for popping the icons */
+@keyframes popIcon {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
